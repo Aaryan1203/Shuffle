@@ -5,23 +5,53 @@ import {
   Text,
   Image,
   TextInput,
+  Animated,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 
 function SignUp({ navigation }) {
+  const [fadeAnim] = useState(new Animated.Value(0));
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const isButtonActive =
-    email.length > 0 && password.length > 0 && repeatedPassword.length > 0;
+    email.length > 0 &&
+    password.length > 0 &&
+    repeatedPassword.length > 0 &&
+    password === repeatedPassword;
 
   const handleSignUp = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "MainApp" }],
-    });
+    if (isButtonActive) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "MainApp" }],
+      });
+    } else {
+      const errorMsg =
+        password !== repeatedPassword
+          ? "Passwords do not match!"
+          : "Please fill in all fields!";
+      setErrorMessage(errorMsg);
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start(() => {
+        setTimeout(() => {
+          Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: 1000,
+            useNativeDriver: true,
+          }).start(() => {
+            setErrorMessage("");
+          });
+        }, 1300);
+      });
+    }
   };
 
   return (
@@ -61,6 +91,9 @@ function SignUp({ navigation }) {
         secureTextEntry={true}
         onChangeText={(text) => setRepeatedPassword(text)}
       />
+      <Animated.Text style={{ ...styles.errorText, opacity: fadeAnim }}>
+        {errorMessage}
+      </Animated.Text>
       <TouchableOpacity
         style={{
           ...styles.signInContainer,
@@ -157,6 +190,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: 5,
     alignItems: "center",
+  },
+  errorText: {
+    color: "red",
+    position: "absolute",
+    bottom: "25%",
+    alignSelf: "center",
   },
 });
 
