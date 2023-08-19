@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   Animated,
   TextInput,
+  ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import Set from "../components/Set";
 
 function MySets(props) {
   const [areButtonsVisible, setButtonsVisibility] = useState(false);
@@ -77,6 +79,15 @@ function MySets(props) {
           placeholderTextColor="#B0B0B0"
         />
       </View>
+      <ScrollView>
+        <Set title="Set 1" dateCreated="20th Aug 2023" />
+        <Set title="Set 1" dateCreated="20th Aug 2023" />
+        <Set title="Set 1" dateCreated="20th Aug 2023" />
+        <Set title="Set 1" dateCreated="20th Aug 2023" />
+        <Set title="Set 1" dateCreated="20th Aug 2023" />
+        <Set title="Set 1" dateCreated="20th Aug 2023" />
+        <Set title="Set 1" dateCreated="20th Aug 2023" />
+      </ScrollView>
     </View>
   );
 }
