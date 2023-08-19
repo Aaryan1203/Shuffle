@@ -4,9 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import Home from "../screens/Home";
 import MySets from "../screens/MySets";
-import NewSet from "../screens/NewSet";
 import Profile from "../screens/Profile";
-import Settings from "../screens/Settings";
 
 const Tab = createBottomTabNavigator();
 
@@ -100,22 +98,6 @@ function BottomTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="New Set"
-        component={NewSet}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View style={styles.iconStyle(focused)}>
-              <Ionicons
-                name={focused ? "add-circle" : "add-circle-outline"}
-                size={30}
-                color={focused ? "white" : "#00A196"}
-                style={{ marginLeft: 2 }}
-              />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
@@ -123,22 +105,6 @@ function BottomTabNavigator() {
             <View style={styles.iconStyle(focused)}>
               <Ionicons
                 name={focused ? "person-circle" : "person-circle-outline"}
-                size={30}
-                color={focused ? "white" : "#00A196"}
-                style={{ marginLeft: 1 }}
-              />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={Settings}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View style={styles.iconStyle(focused)}>
-              <Ionicons
-                name={focused ? "settings" : "settings-outline"}
                 size={30}
                 color={focused ? "white" : "#00A196"}
                 style={{ marginLeft: 1 }}
