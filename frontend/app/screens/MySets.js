@@ -26,16 +26,6 @@ function MySets(props) {
     });
   };
 
-  const aiButtonTranslateX = animatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [110, 0],
-  });
-
-  const cardButtonTranslateX = animatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [55, 0],
-  });
-
   const AnimatedButton = ({ animatedValue, translation, children }) => {
     const translateX = animatedValue.interpolate({
       inputRange: [0, 1],
@@ -79,7 +69,7 @@ function MySets(props) {
           placeholderTextColor="#B0B0B0"
         />
       </View>
-      <ScrollView>
+      <ScrollView style={styles.scrollView}>
         <Set title="Set 1" dateCreated="20th Aug 2023" />
         <Set title="Set 1" dateCreated="20th Aug 2023" />
         <Set title="Set 1" dateCreated="20th Aug 2023" />
@@ -137,6 +127,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 25,
     height: 50,
+    marginBottom: 20
   },
   searchInput: {
     flex: 1,

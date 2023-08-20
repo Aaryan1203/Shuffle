@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   setContainer: {
     backgroundColor: "#363636",
     borderRadius: 25,
-    padding: 15,
+    padding: 10,
     marginVertical: 10,
   },
   topContainer: {
@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 25,
     fontWeight: "bold",
+    marginTop: 3,
+    paddingLeft: 5
   },
   playButton: {
     borderRadius: 10,
@@ -79,6 +81,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     marginTop: 5,
+    paddingLeft: 5
   },
   editButton: {
     borderRadius: 10,

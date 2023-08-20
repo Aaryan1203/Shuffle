@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
+import BackButton from "../components/BackButton";
 
 function SignUp({ navigation }) {
   const [fadeAnim] = useState(new Animated.Value(0));
@@ -57,13 +58,7 @@ function SignUp({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color="#00A196" />
-        </TouchableOpacity>
-
+        <BackButton navigation={navigation} />
         <Image source={require("../assets/logo.png")} style={styles.logo} />
       </View>
 
@@ -123,17 +118,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-  },
-  backButton: {
-    backgroundColor: "#F5FAFA",
-    padding: 10,
-    borderRadius: 10,
-    position: "absolute",
-    top: "-20%",
-    left: "5%",
-  },
-  backButtonText: {
-    color: "#00A196",
   },
   logo: {
     width: 170,
