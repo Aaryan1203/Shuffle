@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import SafetyScreen from "../components/SafetyScreen";
 
-function Profile(props) {
+function Profile({ navigation, profileImageUrl, userName }) {
   const [showSafetyScreen, setShowSafetyScreen] = useState(false);
 
   const handleLogOut = () => {
@@ -50,6 +50,17 @@ function Profile(props) {
             </View>
           </TouchableOpacity>
         </View>
+      </View>
+      <View style={styles.profileImageContainer}>
+        {profileImageUrl ? (
+          <Image
+            source={{ uri: profileImageUrl }}
+            style={styles.profileImage}
+          />
+        ) : (
+          <Ionicons name="person-circle-outline" size={200} color="white" />
+        )}
+        <Text style={styles.userNameText}>Aaryan Jain</Text>
       </View>
     </View>
   );
@@ -106,6 +117,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
     marginLeft: 10,
+  },
+  profileImageContainer: {
+    alignItems: "center",
+    marginTop: 40,
+  },
+  profileImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    borderColor: "white",
+    borderWidth: 2,
+  },
+  userNameText: {
+    fontSize: 32,
+    color: "white",
+    textAlign: "center",
   },
 });
 export default Profile;
