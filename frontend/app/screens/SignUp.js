@@ -58,7 +58,9 @@ function SignUp({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <BackButton navigation={navigation} />
+        <View style={styles.backButton}>
+          <BackButton navigation={navigation} />
+        </View>
         <Image source={require("../assets/logo.png")} style={styles.logo} />
       </View>
 
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
     paddingTop: "25%",
   },
   topContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
@@ -180,6 +182,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: "25%",
     alignSelf: "center",
+  },
+  backButton: {
+    width: "100%",
+    alignItems: "flex-start",
+    paddingHorizontal: 10,
   },
 });
 

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import {
   Text,
   View,
@@ -11,7 +12,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import Set from "../components/Set";
 
-function MySets(props) {
+function MySets({ navigation }) {
   const [areButtonsVisible, setButtonsVisibility] = useState(false);
   const animatedValue = useState(new Animated.Value(0))[0];
   const [searchBar, setSearchBar] = useState("");
@@ -39,18 +40,36 @@ function MySets(props) {
     );
   };
 
+  useEffect(() => {
+    const resetAnimations = () => {
+      if (areButtonsVisible) {
+        handlePlusPress();
+      }
+    };
+
+    const unsubscribe = navigation.addListener("blur", resetAnimations);
+
+    return unsubscribe;
+  }, [navigation, areButtonsVisible, handlePlusPress]);
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>My Sets</Text>
         <View style={{ flexDirection: "row" }}>
           <AnimatedButton animatedValue={animatedValue} translation={110}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate("CreateAISet")}
+            >
               <Text style={styles.aiButtonText}>AI</Text>
             </TouchableOpacity>
           </AnimatedButton>
           <AnimatedButton animatedValue={animatedValue} translation={55}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate("CreateManualSet")}
+            >
               <Ionicons name="card-outline" size={24} color="#00A196" />
             </TouchableOpacity>
           </AnimatedButton>
@@ -69,14 +88,14 @@ function MySets(props) {
           placeholderTextColor="#B0B0B0"
         />
       </View>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView>
         <Set title="Set 1" dateCreated="20th Aug 2023" />
-        <Set title="Set 1" dateCreated="20th Aug 2023" />
-        <Set title="Set 1" dateCreated="20th Aug 2023" />
-        <Set title="Set 1" dateCreated="20th Aug 2023" />
-        <Set title="Set 1" dateCreated="20th Aug 2023" />
-        <Set title="Set 1" dateCreated="20th Aug 2023" />
-        <Set title="Set 1" dateCreated="20th Aug 2023" />
+        <Set title="Set 2" dateCreated="20th Aug 2023" />
+        <Set title="Set 3" dateCreated="20th Aug 2023" />
+        <Set title="Set 4" dateCreated="20th Aug 2023" />
+        <Set title="Set 5" dateCreated="20th Aug 2023" />
+        <Set title="Set 6" dateCreated="20th Aug 2023" />
+        <Set title="Set 7" dateCreated="20th Aug 2023" />
       </ScrollView>
     </View>
   );
@@ -127,7 +146,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 25,
     height: 50,
-    marginBottom: 20
+    marginBottom: 10,
   },
   searchInput: {
     flex: 1,

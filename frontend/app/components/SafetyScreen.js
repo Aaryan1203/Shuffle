@@ -1,15 +1,46 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect, useRef } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 const SafetyScreen = ({ message, onStay, onLeave, exitText, stayText }) => {
+  const opacity = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
+  const handleOnLeave = () => {
+    Animated.timing(opacity, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(onLeave); // Start the leave action after fade-out
+  };
+
+  const handleOnStay = () => {
+    Animated.timing(opacity, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(onStay); // Start the stay action after fade-out
+  };
   return (
-    <View style={styles.overlay}>
+    <Animated.View style={[styles.overlay, { opacity }]}>
       <View style={styles.container}>
         <Text style={styles.message}>{message}</Text>
         <Text style={styles.subMessage}>All changes will be saved</Text>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={[styles.button]} onPress={onLeave}>
+          <TouchableOpacity style={[styles.button]} onPress={handleOnLeave}>
             <LinearGradient
               colors={["#B33", "#E34C4C"]}
               style={styles.gradient}
@@ -21,7 +52,7 @@ const SafetyScreen = ({ message, onStay, onLeave, exitText, stayText }) => {
             </LinearGradient>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.button]} onPress={onStay}>
+          <TouchableOpacity style={[styles.button]} onPress={handleOnStay}>
             <LinearGradient
               colors={["#007A66", "#00A196"]}
               style={styles.gradient}
@@ -34,7 +65,7 @@ const SafetyScreen = ({ message, onStay, onLeave, exitText, stayText }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+      </Animated.View>
   );
 };
 
@@ -77,7 +108,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     margin: 5,
-    paddingVertical: 20
+    paddingVertical: 20,
   },
   buttonText: {
     color: "white",

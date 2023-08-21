@@ -17,7 +17,7 @@ function Profile({ navigation, profileImageUrl, userName }) {
 
   const handleLeave = () => {
     setShowSafetyScreen(false);
-    props.navigation.navigate("Welcome");
+    navigation.navigate("Welcome");
   };
   return (
     <View style={styles.container}>

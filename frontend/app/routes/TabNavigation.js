@@ -1,10 +1,12 @@
 import { TouchableOpacity, Text, View, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 import Home from "../screens/Home";
 import MySets from "../screens/MySets";
 import Profile from "../screens/Profile";
+import SetNavigator from "./SetNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -60,10 +62,25 @@ const CustomTabBar = (props) => {
   );
 };
 
+function getActiveRouteName(route) {
+    // Check for nested routes in the case of nested navigators
+    const routeName = route.state
+        ? // Dive into nested navigators
+          route.state.routes[route.state.index].name
+        : route.params?.screen || "Home"; // Use screen parameter if available or default to "Home"
+
+    return routeName;
+}
+
 function BottomTabNavigator() {
+
+
+
   return (
     <Tab.Navigator
-      screenOptions={{ headerShown: false }}
+      screenOptions={() => ({
+        headerShown: false,
+      })}
       tabBar={(props) => <CustomTabBar {...props} />}
     >
       <Tab.Screen
@@ -83,7 +100,7 @@ function BottomTabNavigator() {
       />
       <Tab.Screen
         name="My Sets"
-        component={MySets}
+        component={SetNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.iconStyle(focused)}>

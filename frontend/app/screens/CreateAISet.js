@@ -2,10 +2,11 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import TermDefinition from "../components/TermDefinition";
 
-function Home(props) {
+function CreateAISet(props) {
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+    
+      <Text>AI Set</Text>
     </View>
   );
 }
@@ -18,4 +19,4 @@ const styles = StyleSheet.create({
     paddingTop: "25%",
   },
 });
-export default Home;
+export default CreateAISet;

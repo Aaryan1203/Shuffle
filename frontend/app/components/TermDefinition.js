@@ -1,24 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
-import BackButton from "./BackButton";
 import { TextInput } from "react-native";
 
 const InputField = ({ header, value }) => {
+  const [focused, setFocused] = useState(false);
+  const [input, setInput] = useState("");
+
+  const handleInputChange = (text) => {
+    setInput(text);
+    if (!text) {
+      setFocused(false);
+    } else {
+      setFocused(true);
+    }
+  };
+
   return (
-    <View style={style.inputContainer}>
-      <Text style={style.headerText}>{header}</Text>
-      <TextInput style={style.inputField}>{value}</TextInput>
+    <View style={styles.inputContainer}>
+      <Text style={styles.headerText}>{header}</Text>
+      <TextInput
+        onChangeText={handleInputChange}
+        style={[
+          styles.inputField,
+          focused ? { borderBottomColor: "white" } : {},
+        ]}
+      >
+        {value}
+      </TextInput>
     </View>
   );
 };
 
 const TermDefinition = ({ termNumber, term, definition }) => {
   return (
-    <View style={style.termDefinitionContainer}>
-      <Text style={style.termNumber}>{termNumber} </Text>
-      <View style={style.inputContainer}>
+    <View style={styles.termDefinitionContainer}>
+      <Text style={styles.termNumber}>{termNumber} </Text>
+      <View style={styles.inputContainer}>
         <InputField header="Term" value={term || ""} />
         <InputField header="Definition" value={definition || ""} />
       </View>
@@ -26,14 +43,15 @@ const TermDefinition = ({ termNumber, term, definition }) => {
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   termDefinitionContainer: {
-    padding: 15,
+    padding: 10,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#D9D9D9",
-    borderRadius: 10,
+    borderRadius: 20,
     width: "90%",
+    margin: 10,
   },
   termNumber: {
     alignItems: "center",
@@ -49,11 +67,11 @@ const style = StyleSheet.create({
     borderBottomWidth: 3,
     borderBottomColor: "#A7A7A7",
     height: 30,
-    width: "100%",
+    width: "95%",
+    marginVertical: 5,
   },
   headerText: {
-    fontSize: 16,
-    marginTop: 5,
+    fontSize: 14,
   },
 });
 
