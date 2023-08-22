@@ -18,9 +18,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5FAFA",
     padding: 10,
     borderRadius: 10,
-    // Remove position and top attributes
-    // position: "absolute",
-    // top: "-20%",
     left: "5%",
     },
 });

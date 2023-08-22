@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    margin: 10
+    margin: 10,
   },
   addButtonText: {
     fontSize: 30,
@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#CFD3D9",
     alignItems: "center",
     justifyContent: "center",
-
-  }
+  },
 });
 export default CreateManualSet;
