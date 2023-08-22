@@ -33,7 +33,10 @@ function Profile({ navigation, profileImageUrl, userName }) {
       <View style={styles.topBar}>
         <Text style={styles.profileText}>Profile</Text>
         <View style={styles.iconContainer}>
-          <TouchableOpacity style={styles.settings}>
+          <TouchableOpacity
+            style={styles.settings}
+            onPress={() => navigation.navigate("CreateSettingsRoot")}
+          >
             <Ionicons name="settings-outline" size={24} color="#00A196" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton} onPress={handleLogOut}>

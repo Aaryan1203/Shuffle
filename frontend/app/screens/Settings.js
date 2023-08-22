@@ -1,10 +1,11 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import TermDefinition from "../components/TermDefinition";
 
-function Home(props) {
+function Settings(props) {
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <Text>Settings</Text>
     </View>
   );
 }
@@ -17,4 +18,4 @@ const styles = StyleSheet.create({
     paddingTop: "25%",
   },
 });
-export default Home;
+export default Settings;

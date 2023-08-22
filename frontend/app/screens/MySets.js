@@ -60,7 +60,7 @@ function MySets({ navigation }) {
           <AnimatedButton animatedValue={animatedValue} translation={110}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate("CreateAISet")}
+              onPress={() => navigation.navigate("CreateAISetRoot")}
             >
               <Text style={styles.aiButtonText}>AI</Text>
             </TouchableOpacity>
@@ -68,7 +68,7 @@ function MySets({ navigation }) {
           <AnimatedButton animatedValue={animatedValue} translation={55}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate("CreateManualSet")}
+              onPress={() => navigation.navigate("CreateManualSetRoot")}
             >
               <Ionicons name="card-outline" size={24} color="#00A196" />
             </TouchableOpacity>

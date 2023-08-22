@@ -5,8 +5,10 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 import Home from "../screens/Home";
 import MySets from "../screens/MySets";
+import MySetsStack from "./MySetsStack";
+import ProfileStack from "./ProfileStack"
+import ProfileStackNavigator from "./MySetsStack";
 import Profile from "../screens/Profile";
-import SetNavigator from "./SetNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -62,20 +64,7 @@ const CustomTabBar = (props) => {
   );
 };
 
-function getActiveRouteName(route) {
-    // Check for nested routes in the case of nested navigators
-    const routeName = route.state
-        ? // Dive into nested navigators
-          route.state.routes[route.state.index].name
-        : route.params?.screen || "Home"; // Use screen parameter if available or default to "Home"
-
-    return routeName;
-}
-
 function BottomTabNavigator() {
-
-
-
   return (
     <Tab.Navigator
       screenOptions={() => ({
@@ -100,7 +89,7 @@ function BottomTabNavigator() {
       />
       <Tab.Screen
         name="My Sets"
-        component={SetNavigator}
+        component={MySetsStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.iconStyle(focused)}>
@@ -116,7 +105,7 @@ function BottomTabNavigator() {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.iconStyle(focused)}>

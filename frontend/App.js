@@ -1,5 +1,5 @@
 import React from "react";
-import Navigator from "./app/routes/HomeNavigation";
+import Navigator from "./app/routes/WelcomeStack";
 import WelcomeScreen from "./app/screens/Welcome";
 import SignIn from "./app/screens/SignIn";
 import SignUp from "./app/screens/SignUp";
