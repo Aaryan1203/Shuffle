@@ -47,7 +47,7 @@ function CreateAISetStack() {
 
 function RootStack() {
   return (
-    <Stack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator presentation="modal" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MySetsRoot" component={MySetsStack} />
       <Stack.Screen name="CreateManualSetRoot" component={CreateManualSetStack} />
       <Stack.Screen name="CreateAISetRoot" component={CreateAISetStack} />
