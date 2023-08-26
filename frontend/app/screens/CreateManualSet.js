@@ -14,7 +14,7 @@ import {
 import TermDefinition from "../components/TermDefinition";
 import BackButton from "../components/BackButton";
 import Set from "../components/Set";
-import SafetyScreen from "../components/SafetyScreen";
+import SafetyScreen from "../components/PopUp";
 
 function CreateManualSet({ navigation }) {
   const [focused, setFocused] = useState(false);

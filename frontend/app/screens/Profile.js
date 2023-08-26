@@ -2,28 +2,28 @@ import React, { useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import SafetyScreen from "../components/SafetyScreen";
+import PopUp from "../components/PopUp";
 
 function Profile({ navigation, profileImageUrl, userName }) {
-  const [showSafetyScreen, setShowSafetyScreen] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
 
   const handleLogOutButton = () => {
-    setShowSafetyScreen(true);
+    setShowPopUp(true);
   };
 
   const handleStay = () => {
-    setShowSafetyScreen(false);
+    setShowPopUp(false);
   };
 
   const handleLogOut = () => {
-    setShowSafetyScreen(false);
+    setShowPopUp(false);
     navigation.navigate("Welcome");
   };
 
   return (
     <View style={styles.container}>
-      {showSafetyScreen && (
-        <SafetyScreen
+      {showPopUp && (
+        <PopUp
           message="Are you sure you want to log out?"
           subMessage="All changes will be saved"
           onStay={handleStay}
@@ -41,7 +41,10 @@ function Profile({ navigation, profileImageUrl, userName }) {
           >
             <Ionicons name="settings-outline" size={24} color="#00A196" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton} onPress={handleLogOutButton}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={handleLogOutButton}
+          >
             <LinearGradient
               colors={["#B33", "#E34C4C"]}
               style={styles.gradientBackground}

@@ -7,11 +7,13 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   PanResponder,
+  Animated,
+  Easing,
 } from "react-native";
 import BackButton from "../components/BackButton";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import SafetyScreen from "../components/SafetyScreen";
+import PopUp from "../components/PopUp";
 const handleSwipe = (
   gestureState,
   greenCount,
@@ -35,7 +37,8 @@ function Flashcards({ navigation }) {
   const [redCount, setRedCount] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isSwiped, setIsSwiped] = useState(false);
-  const [showSafetyScreen, setShowSafetyScreen] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [flipValue] = useState(new Animated.Value(0));
 
   const [cards, setCards] = useState([
     { term: "Term 1", definition: "Definition 1" },
@@ -74,7 +77,7 @@ function Flashcards({ navigation }) {
               cards,
               setIsFlipped,
               setCurrentIndex,
-              setShowSafetyScreen
+              setShowPopUp
             )
         );
       },
@@ -89,79 +92,128 @@ function Flashcards({ navigation }) {
     cards,
     setIsFlipped,
     setCurrentIndex,
-    setShowSafetyScreen
+    setShowPopUp
   ) => {
     setIsFlipped(false);
     if (currentIndex < cards.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      setShowSafetyScreen(true);
+      setShowPopUp(true);
     }
   };
 
+  const handleFlip = () => {
+    const toValue = isFlipped ? 0 : 1;
+    Animated.timing(flipValue, {
+      toValue: toValue,
+      duration: 400,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start(() => {
+      setIsFlipped(!isFlipped);
+    });
+  };
+
+  const frontOpacity = flipValue.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [1, 0, 0],
+  });
+
+  const backOpacity = flipValue.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, 0, 1],
+  });
+
+  const backRotate = flipValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "180deg"],
+  });
+
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        {showSafetyScreen && (
-          <SafetyScreen
-            message="You've completed all cards!"
-            subMessage="Would you like to restart or go back to the My Sets page?"
-            onStay={() => {
-              setShowSafetyScreen(false);
-              setCurrentIndex(0);
-              setGreenCount(0);
-              setRedCount(0);
-            }}
-            onLeave={() => {
-              setShowSafetyScreen(false);
-              navigation.navigate("MySets");
-            }}
-            exitText="My Sets"
-            stayText="Restart"
-          />
-        )}
-        <View style={styles.headerContainer}>
-          <BackButton navigation={navigation} />
-          <TouchableOpacity style={styles.undoButton}>
-            <MaterialIcons name="undo" size={24} color="#00A196" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.settings}>
-            <Ionicons name="settings-outline" size={24} color="#00A196" />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.mainContent}>
-          <View
-            {...panResponder.panHandlers}
-            style={styles.flashcard}
-            onTouchEnd={() => {
-              if (!isSwiped) {
-                setIsFlipped(!isFlipped);
-              }
-              setIsSwiped(false);
-            }}
+    <View style={styles.container}>
+      {showPopUp && (
+        <PopUp
+          message="You've completed all cards!"
+          subMessage="Would you like to restart or go back to the My Sets page?"
+          onStay={() => {
+            setShowPopUp(false);
+            setCurrentIndex(0);
+            setGreenCount(0);
+            setRedCount(0);
+          }}
+          onLeave={() => {
+            setShowPopUp(false);
+            navigation.navigate("MySets");
+          }}
+          exitText="My Sets"
+          stayText="Restart"
+        />
+      )}
+      <View style={styles.headerContainer}>
+        <BackButton navigation={navigation} />
+        <TouchableOpacity style={styles.undoButton}>
+          <MaterialIcons name="undo" size={24} color="#00A196" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.settings}>
+          <Ionicons name="settings-outline" size={24} color="#00A196" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.mainContent}>
+        <Animated.View
+          {...panResponder.panHandlers}
+          style={[
+            styles.flashcard,
+            {
+              transform: [
+                {
+                  rotateY: flipValue.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: ["0deg", "180deg"],
+                  }),
+                },
+              ],
+            },
+          ]}
+          onTouchEnd={() => {
+            if (!isSwiped) {
+              handleFlip();
+            }
+            setIsSwiped(false);
+          }}
+        >
+          <Animated.Text
+            style={[styles.flashcardText, { opacity: frontOpacity }]}
           >
-            <Text style={styles.flashcardText}>
-              {isFlipped
-                ? cards[currentIndex].definition
-                : cards[currentIndex].term}
-            </Text>
-          </View>
+            {cards[currentIndex].term}
+          </Animated.Text>
+          <Animated.Text
+            style={[
+              styles.flashcardText,
+              {
+                opacity: backOpacity,
+                transform: [{ rotateY: backRotate }],
+                position: "absolute",
+              },
+            ]}
+          >
+            {cards[currentIndex].definition}
+          </Animated.Text>
+        </Animated.View>
+      </View>
+      <View style={styles.footer}>
+        <View style={styles.colorBoxRed}>
+          <Text style={styles.scoreText}>{redCount}</Text>
         </View>
-        <View style={styles.footer}>
-          <View style={styles.colorBoxRed}>
-            <Text style={styles.scoreText}>{redCount}</Text>
-          </View>
-          <View style={styles.cardNumberContainer}>
-            <Text style={styles.cardNumber}>
-              {currentIndex + 1}/{cards.length}
-            </Text>
-          </View>
-          <View style={styles.colorBoxGreen}>
-            <Text style={styles.scoreText}>{greenCount}</Text>
-          </View>
+        <View style={styles.cardNumberContainer}>
+          <Text style={styles.cardNumber}>
+            {currentIndex + 1}/{cards.length}
+          </Text>
+        </View>
+        <View style={styles.colorBoxGreen}>
+          <Text style={styles.scoreText}>{greenCount}</Text>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </View>
   );
 }
 

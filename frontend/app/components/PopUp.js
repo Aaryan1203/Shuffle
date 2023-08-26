@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-const SafetyScreen = ({ message, subMessage, onStay, onLeave, exitText, stayText }) => {
+const PopUp = ({ message, subMessage, onStay, onLeave, exitText, stayText }) => {
   const opacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -127,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SafetyScreen;
+export default PopUp;
