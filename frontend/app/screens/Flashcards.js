@@ -11,7 +11,7 @@ import {
 import BackButton from "../components/BackButton";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-
+import SafetyScreen from "../components/SafetyScreen";
 const handleSwipe = (
   gestureState,
   greenCount,
@@ -29,30 +29,14 @@ const handleSwipe = (
   }
 };
 
-const moveToNextCard = (
-  currentIndex,
-  cards,
-  setIsFlipped,
-  setCurrentIndex,
-  setGreenCount,
-  setRedCount
-) => {
-  setIsFlipped(false);
-  if (currentIndex < cards.length - 1) {
-    setCurrentIndex(currentIndex + 1);
-  } else {
-    setCurrentIndex(0);
-    setGreenCount(0);
-    setRedCount(0);
-  }
-};
-
 function Flashcards({ navigation }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [greenCount, setGreenCount] = useState(0);
   const [redCount, setRedCount] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isSwiped, setIsSwiped] = useState(false);
+  const [showSafetyScreen, setShowSafetyScreen] = useState(false);
+
   const [cards, setCards] = useState([
     { term: "Term 1", definition: "Definition 1" },
     { term: "Term 2", definition: "Definition 2" },
@@ -90,21 +74,52 @@ function Flashcards({ navigation }) {
               cards,
               setIsFlipped,
               setCurrentIndex,
-              setGreenCount,
-              setRedCount
+              setShowSafetyScreen
             )
         );
       },
       onPanResponderTerminate: () => {
-        // reset the isSwiped flag
         setIsSwiped(false);
       },
     })
   ).current;
 
+  const moveToNextCard = (
+    currentIndex,
+    cards,
+    setIsFlipped,
+    setCurrentIndex,
+    setShowSafetyScreen
+  ) => {
+    setIsFlipped(false);
+    if (currentIndex < cards.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    } else {
+      setShowSafetyScreen(true);
+    }
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
+        {showSafetyScreen && (
+          <SafetyScreen
+            message="You've completed all cards!"
+            subMessage="Would you like to restart or go back to the My Sets page?"
+            onStay={() => {
+              setShowSafetyScreen(false);
+              setCurrentIndex(0);
+              setGreenCount(0);
+              setRedCount(0);
+            }}
+            onLeave={() => {
+              setShowSafetyScreen(false);
+              navigation.navigate("MySets");
+            }}
+            exitText="My Sets"
+            stayText="Restart"
+          />
+        )}
         <View style={styles.headerContainer}>
           <BackButton navigation={navigation} />
           <TouchableOpacity style={styles.undoButton}>
