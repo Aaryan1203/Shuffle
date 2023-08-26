@@ -71,8 +71,7 @@ const styles = StyleSheet.create({
   },
   inputField: {
     borderBottomWidth: 3,
-    borderBottomColor: "#007E75",
-    height: 30,
+    borderBottomColor: "transparent",
     width: "95%",
     marginVertical: 5,
   },
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "transparent",
     height: 30,
     width: "95%",
-    marginVertical: 5,
+
     overflow: "hidden",
   },
   gradientBorder: {

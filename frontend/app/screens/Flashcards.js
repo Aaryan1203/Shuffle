@@ -4,8 +4,6 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
   PanResponder,
   Animated,
   Easing,
@@ -45,6 +43,10 @@ function Flashcards({ navigation }) {
     { term: "Term 2", definition: "Definition 2" },
     { term: "Term 3", definition: "Definition 3" },
     { term: "Term 4", definition: "Definition 4" },
+    { term: "Term 5", definition: "Definition 5" },
+    { term: "Term 6", definition: "Definition 6" },
+    { term: "Term 7", definition: "Definition 7" },
+    { term: "Term 8", definition: "Definition 8" },
   ]);
   const currentIndexRef = useRef(currentIndex);
   const greenCountRef = useRef(greenCount);
@@ -243,7 +245,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 20,
     width: "70%",
-    marginTop: "10%",
+    marginTop: "12%",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -255,7 +257,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: "25%",
+    marginBottom: "5%",
   },
   cardNumberContainer: {
     height: 60,
