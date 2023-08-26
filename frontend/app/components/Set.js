@@ -3,13 +3,16 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Set = ({ title, dateCreated, onPress }) => {
+const Set = ({ title, dateCreated, onPress, navigation }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.setContainer}>
         <View style={styles.topContainer}>
           <Text style={styles.titleText}>{title}</Text>
-          <TouchableOpacity style={styles.playButton}>
+          <TouchableOpacity
+            style={styles.playButton}
+            onPress={() => navigation.navigate("Flashcards")}
+          >
             <LinearGradient
               colors={["#007E75", "#00A196"]}
               style={styles.gradientBackground}
@@ -25,7 +28,10 @@ const Set = ({ title, dateCreated, onPress }) => {
         </View>
         <View style={styles.bottomContainer}>
           <Text style={styles.dateText}>{dateCreated}</Text>
-          <TouchableOpacity style={styles.playButton}>
+          <TouchableOpacity
+            style={styles.playButton}
+            onPress={() => navigation.navigate("CreateManualSetRoot")}
+          >
             <LinearGradient
               colors={["#07559E", "#1B83E2"]}
               style={styles.gradientBackground}

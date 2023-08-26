@@ -19,7 +19,10 @@ function SetScreen({ navigation, route }) {
       <View style={styles.topContainer}>
         <BackButton style={styles.backButton} navigation={navigation} />
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.playButton}>
+          <TouchableOpacity
+            style={styles.playButton}
+            onPress={() => navigation.navigate("Flashcards")}
+          >
             <LinearGradient
               colors={["#007E75", "#00A196"]}
               style={styles.gradientBackground}
@@ -32,7 +35,10 @@ function SetScreen({ navigation, route }) {
               <Ionicons name="play" size={24} color="white" />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.playButton}>
+          <TouchableOpacity
+            style={styles.playButton}
+            onPress={() => navigation.navigate("CreateManualSetRoot")}
+          >
             <LinearGradient
               colors={["#07559E", "#1B83E2"]}
               style={styles.gradientBackground}

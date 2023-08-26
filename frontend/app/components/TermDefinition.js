@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const InputField = ({ header, value }) => {
   const [focused, setFocused] = useState(false);
@@ -18,15 +19,19 @@ const InputField = ({ header, value }) => {
   return (
     <View style={styles.inputContainer}>
       <Text style={styles.headerText}>{header}</Text>
-      <TextInput
-        onChangeText={handleInputChange}
-        style={[
-          styles.inputField,
-          focused ? { borderBottomColor: "white" } : {},
-        ]}
-      >
-        {value}
-      </TextInput>
+      <View style={styles.gradientBorderContainer}>
+        <TextInput
+          onChangeText={handleInputChange}
+          style={styles.inputField}
+          value={input}
+        />
+        <LinearGradient
+          colors={["#007E75", "#00A196"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.gradientBorder}
+        />
+      </View>
     </View>
   );
 };
@@ -74,6 +79,21 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 14,
     color: "#007E75",
+  },
+  gradientBorderContainer: {
+    borderBottomWidth: 3,
+    borderBottomColor: "transparent",
+    height: 30,
+    width: "95%",
+    marginVertical: 5,
+    overflow: "hidden",
+  },
+  gradientBorder: {
+    height: 3,
+    width: "100%",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
   },
 });
 

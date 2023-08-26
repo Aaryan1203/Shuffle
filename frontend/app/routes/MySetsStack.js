@@ -5,6 +5,8 @@ import CreateManualSet from "../screens/CreateManualSet";
 import CreateAISet from "../screens/CreateAISet";
 import TabNavigation from "./TabNavigation";
 import SetScreen from "../screens/SetScreen";
+import Flashcards from "../screens/Flashcards";
+
 const Stack = createStackNavigator();
 
 function MySetsStack() {
@@ -45,6 +47,18 @@ function CreateAISetStack() {
   );
 }
 
+function FlashcardsStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Flashcards" component={Flashcards} />
+    </Stack.Navigator>
+  );
+}
+
 function RootStack() {
   return (
     <Stack.Navigator
@@ -57,6 +71,7 @@ function RootStack() {
         component={CreateManualSetStack}
       />
       <Stack.Screen name="CreateAISetRoot" component={CreateAISetStack} />
+      <Stack.Screen name="Flashcards" component={FlashcardsStack} />
     </Stack.Navigator>
   );
 }

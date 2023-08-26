@@ -112,6 +112,7 @@ function MySets({ navigation }) {
                   dateCreated: set.dateCreated,
                 })
               }
+              navigation={navigation}
             />
           ))}
       </ScrollView>
