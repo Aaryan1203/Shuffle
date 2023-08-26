@@ -16,6 +16,10 @@ function MySets({ navigation }) {
   const [areButtonsVisible, setButtonsVisibility] = useState(false);
   const animatedValue = useState(new Animated.Value(0))[0];
   const [searchBar, setSearchBar] = useState("");
+  const [sets, setSets] = useState([
+    { title: "Set 1", dateCreated: "20th Aug 2023" },
+    { title: "Set 2", dateCreated: "20th Aug 2023" },
+  ]);
 
   const handlePlusPress = () => {
     Animated.timing(animatedValue, {
@@ -79,7 +83,11 @@ function MySets({ navigation }) {
         </View>
       </View>
       <View style={styles.searchContainer}>
-        <Ionicons name="search" size={20} color="#B0B0B0" />
+        <Ionicons
+          name="search"
+          size={20}
+          color={searchBar.length > 0 ? "white" : "#B0B0B0"}
+        />
         <TextInput
           style={styles.searchInput}
           value={searchBar}
@@ -89,22 +97,23 @@ function MySets({ navigation }) {
         />
       </View>
       <ScrollView>
-        <Set
-          title="Set 1"
-          dateCreated="20th Aug 2023"
-          onPress={() =>
-            navigation.navigate("SetScreen", {
-              title: "Set 1",
-              dateCreated: "20th Aug 2023",
-            })
-          }
-        />
-        <Set title="Set 2" dateCreated="20th Aug 2023" />
-        <Set title="Set 3" dateCreated="20th Aug 2023" />
-        <Set title="Set 4" dateCreated="20th Aug 2023" />
-        <Set title="Set 5" dateCreated="20th Aug 2023" />
-        <Set title="Set 6" dateCreated="20th Aug 2023" />
-        <Set title="Set 7" dateCreated="20th Aug 2023" />
+        {sets
+          .filter((set) =>
+            set.title.toLowerCase().includes(searchBar.toLowerCase())
+          )
+          .map((set, index) => (
+            <Set
+              key={index}
+              title={set.title}
+              dateCreated={set.dateCreated}
+              onPress={() =>
+                navigation.navigate("SetScreen", {
+                  title: set.title,
+                  dateCreated: set.dateCreated,
+                })
+              }
+            />
+          ))}
       </ScrollView>
     </View>
   );
@@ -160,7 +169,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     marginLeft: 10,
-    color: "#B0B0B0",
+    color: "white",
     fontSize: 20,
   },
 });

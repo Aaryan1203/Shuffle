@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginRight: 10,
     fontSize: 24,
+    color: "#007E75",
   },
   inputContainer: {
     flexDirection: "column",
@@ -65,13 +66,14 @@ const styles = StyleSheet.create({
   },
   inputField: {
     borderBottomWidth: 3,
-    borderBottomColor: "#A7A7A7",
+    borderBottomColor: "#007E75",
     height: 30,
     width: "95%",
     marginVertical: 5,
   },
   headerText: {
     fontSize: 14,
+    color: "#007E75",
   },
 });
 
