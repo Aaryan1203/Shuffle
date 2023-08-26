@@ -4,7 +4,7 @@ import MySets from "../screens/MySets";
 import CreateManualSet from "../screens/CreateManualSet";
 import CreateAISet from "../screens/CreateAISet";
 import TabNavigation from "./TabNavigation";
-
+import SetScreen from "../screens/SetScreen";
 const Stack = createStackNavigator();
 
 function MySetsStack() {
@@ -16,10 +16,10 @@ function MySetsStack() {
       }}
     >
       <Stack.Screen name="MySets" component={MySets} />
+      <Stack.Screen name="SetScreen" component={SetScreen} />
     </Stack.Navigator>
   );
 }
-
 
 function CreateManualSetStack() {
   return (
@@ -47,9 +47,15 @@ function CreateAISetStack() {
 
 function RootStack() {
   return (
-    <Stack.Navigator presentation="modal" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      presentation="modal"
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen name="MySetsRoot" component={MySetsStack} />
-      <Stack.Screen name="CreateManualSetRoot" component={CreateManualSetStack} />
+      <Stack.Screen
+        name="CreateManualSetRoot"
+        component={CreateManualSetStack}
+      />
       <Stack.Screen name="CreateAISetRoot" component={CreateAISetStack} />
     </Stack.Navigator>
   );

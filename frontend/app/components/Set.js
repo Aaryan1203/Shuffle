@@ -3,42 +3,44 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Set = ({ title, dateCreated }) => {
+const Set = ({ title, dateCreated, onPress }) => {
   return (
-    <View style={styles.setContainer}>
-      <View style={styles.topContainer}>
-        <Text style={styles.titleText}>{title}</Text>
-        <TouchableOpacity style={styles.playButton}>
-          <LinearGradient
-            colors={["#007E75", "#00A196"]}
-            style={styles.gradientBackground}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            angle={135}
-            useAngle={true}
-          />
-          <View style={styles.iconContainer}>
-            <Ionicons name="play" size={20} color="white" />
-          </View>
-        </TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.setContainer}>
+        <View style={styles.topContainer}>
+          <Text style={styles.titleText}>{title}</Text>
+          <TouchableOpacity style={styles.playButton}>
+            <LinearGradient
+              colors={["#007E75", "#00A196"]}
+              style={styles.gradientBackground}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              angle={135}
+              useAngle={true}
+            />
+            <View style={styles.iconContainer}>
+              <Ionicons name="play" size={20} color="white" />
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.bottomContainer}>
+          <Text style={styles.dateText}>{dateCreated}</Text>
+          <TouchableOpacity style={styles.playButton}>
+            <LinearGradient
+              colors={["#07559E", "#1B83E2"]}
+              style={styles.gradientBackground}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              angle={135}
+              useAngle={true}
+            />
+            <View style={styles.iconContainer}>
+              <Ionicons name="pencil" size={20} color="white" />
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.bottomContainer}>
-        <Text style={styles.dateText}>{dateCreated}</Text>
-        <TouchableOpacity style={styles.playButton}>
-          <LinearGradient
-            colors={["#07559E", "#1B83E2"]}
-            style={styles.gradientBackground}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            angle={135}
-            useAngle={true}
-          />
-          <View style={styles.iconContainer}>
-            <Ionicons name="pencil" size={20} color="white" />
-          </View>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold",
     marginTop: 3,
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   playButton: {
     borderRadius: 10,
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     marginTop: 5,
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   editButton: {
     borderRadius: 10,

@@ -14,11 +14,13 @@ import {
 import TermDefinition from "../components/TermDefinition";
 import BackButton from "../components/BackButton";
 import Set from "../components/Set";
+import SafetyScreen from "../components/SafetyScreen";
 
 function CreateManualSet({ navigation }) {
   const [focused, setFocused] = useState(false);
   const [title, setTitle] = useState("");
   const [termDefinitions, setTermDefinitions] = useState([1]);
+  const [showSafetyScreen, setShowSafetyScreen] = useState(false);
 
   const handleTitleChange = (text) => {
     setTitle(text);
@@ -34,14 +36,37 @@ function CreateManualSet({ navigation }) {
     setTermDefinitions([...termDefinitions, termDefinitions.length + 1]);
   };
 
+  const hasFilledFields = () => {
+    return title !== "";
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
+        {showSafetyScreen && (
+          <SafetyScreen
+            message="Are you sure you want to leave this page?"
+            subMessage="Changes will not be saved"
+            onStay={() => setShowSafetyScreen(false)}
+            onLeave={navigation.goBack}
+            exitText="Discard"
+            stayText="Stay"
+          />
+        )}
         <View style={styles.topContainer}>
-          <BackButton navigation={navigation} />
+          <BackButton
+            onPress={() => {
+              if (hasFilledFields()) {
+                setShowSafetyScreen(true);
+              } else {
+                navigation.goBack();
+              }
+            }}
+            navigation={navigation}
+          />
           <View style={styles.titleContainer}>
             <Text style={styles.titleText}>Title</Text>
             <TextInput

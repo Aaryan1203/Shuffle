@@ -38,7 +38,7 @@ function SettingsStack() {
 
 function RootStack() {
   return (
-    <Stack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator presentation="modal" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="ProfileRoot" component={ProfileStack} />
       <Stack.Screen name="CreateSettingsRoot" component={SettingsStack} />
     </Stack.Navigator>

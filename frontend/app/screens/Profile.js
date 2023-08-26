@@ -7,7 +7,7 @@ import SafetyScreen from "../components/SafetyScreen";
 function Profile({ navigation, profileImageUrl, userName }) {
   const [showSafetyScreen, setShowSafetyScreen] = useState(false);
 
-  const handleLogOut = () => {
+  const handleLogOutButton = () => {
     setShowSafetyScreen(true);
   };
 
@@ -15,17 +15,19 @@ function Profile({ navigation, profileImageUrl, userName }) {
     setShowSafetyScreen(false);
   };
 
-  const handleLeave = () => {
+  const handleLogOut = () => {
     setShowSafetyScreen(false);
     navigation.navigate("Welcome");
   };
+
   return (
     <View style={styles.container}>
       {showSafetyScreen && (
         <SafetyScreen
           message="Are you sure you want to log out?"
+          subMessage="All changes will be saved"
           onStay={handleStay}
-          onLeave={handleLeave}
+          onLeave={handleLogOut}
           exitText="Logout"
           stayText="Stay"
         />
@@ -39,7 +41,7 @@ function Profile({ navigation, profileImageUrl, userName }) {
           >
             <Ionicons name="settings-outline" size={24} color="#00A196" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton} onPress={handleLogOut}>
+          <TouchableOpacity style={styles.iconButton} onPress={handleLogOutButton}>
             <LinearGradient
               colors={["#B33", "#E34C4C"]}
               style={styles.gradientBackground}

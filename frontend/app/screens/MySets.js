@@ -89,7 +89,16 @@ function MySets({ navigation }) {
         />
       </View>
       <ScrollView>
-        <Set title="Set 1" dateCreated="20th Aug 2023" />
+        <Set
+          title="Set 1"
+          dateCreated="20th Aug 2023"
+          onPress={() =>
+            navigation.navigate("SetScreen", {
+              title: "Set 1",
+              dateCreated: "20th Aug 2023",
+            })
+          }
+        />
         <Set title="Set 2" dateCreated="20th Aug 2023" />
         <Set title="Set 3" dateCreated="20th Aug 2023" />
         <Set title="Set 4" dateCreated="20th Aug 2023" />

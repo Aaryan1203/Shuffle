@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-const SafetyScreen = ({ message, onStay, onLeave, exitText, stayText }) => {
+const SafetyScreen = ({ message, subMessage, onStay, onLeave, exitText, stayText }) => {
   const opacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const SafetyScreen = ({ message, onStay, onLeave, exitText, stayText }) => {
       toValue: 0,
       duration: 300,
       useNativeDriver: true,
-    }).start(onLeave); // Start the leave action after fade-out
+    }).start(onLeave);
   };
 
   const handleOnStay = () => {
@@ -32,13 +32,13 @@ const SafetyScreen = ({ message, onStay, onLeave, exitText, stayText }) => {
       toValue: 0,
       duration: 300,
       useNativeDriver: true,
-    }).start(onStay); // Start the stay action after fade-out
+    }).start(onStay);
   };
   return (
     <Animated.View style={[styles.overlay, { opacity }]}>
       <View style={styles.container}>
         <Text style={styles.message}>{message}</Text>
-        <Text style={styles.subMessage}>All changes will be saved</Text>
+        <Text style={styles.subMessage}>{subMessage}</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={[styles.button]} onPress={handleOnLeave}>
             <LinearGradient
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 25,
-    marginBottom: 10,
+    marginBottom: 12,
     textAlign: "center",
   },
   subMessage: {
