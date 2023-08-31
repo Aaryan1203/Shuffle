@@ -52,7 +52,7 @@ function CreateManualSet({ navigation }) {
             subMessage="Changes will not be saved"
             onStay={() => setShowSafetyScreen(false)}
             onLeave={navigation.goBack}
-            exitText="Discard"
+            exitText="Leave"
             stayText="Stay"
           />
         )}

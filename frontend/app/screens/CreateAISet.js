@@ -12,11 +12,13 @@ import {
   Keyboard,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import SafetyScreen from "../components/PopUp";
 
 function CreateAISet({ navigation }) {
   const [focused, setFocused] = useState(false);
   const [activeButton, setActiveButton] = useState("prompt");
   const [title, setTitle] = useState("");
+  const [showSafetyScreen, setShowSafetyScreen] = useState(false);
 
   const handleTitleChange = (text) => {
     setTitle(text);
@@ -27,14 +29,37 @@ function CreateAISet({ navigation }) {
     }
   };
 
+  const hasFilledFields = () => {
+    return title !== "";
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
+        {showSafetyScreen && (
+          <SafetyScreen
+            message="Are you sure you want to leave this page?"
+            subMessage="Changes will not be saved"
+            onStay={() => setShowSafetyScreen(false)}
+            onLeave={navigation.goBack}
+            exitText="Leave"
+            stayText="Stay"
+          />
+        )}
         <View style={styles.topContainer}>
-          <BackButton navigation={navigation} />
+          <BackButton
+            onPress={() => {
+              if (hasFilledFields()) {
+                setShowSafetyScreen(true);
+              } else {
+                navigation.goBack();
+              }
+            }}
+            navigation={navigation}
+          />
           <View style={styles.titleContainer}>
             <Text style={styles.titleText}>Title</Text>
             <TextInput
