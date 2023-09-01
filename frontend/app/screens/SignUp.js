@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     position: "absolute",
-    bottom: "25%",
+    bottom: "20%",
     alignSelf: "center",
   },
   backButton: {

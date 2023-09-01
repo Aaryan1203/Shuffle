@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     position: "absolute",
-    bottom: "50%",
+    bottom: "45%",
     alignSelf: "center",
   },
   backButton: {
