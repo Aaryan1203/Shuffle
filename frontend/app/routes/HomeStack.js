@@ -10,16 +10,15 @@ import Home from "../screens/Home";
 
 const Stack = createStackNavigator();
 
-function MySetsStack() {
+function HomeStack() {
   return (
     <Stack.Navigator
-      initialRouteName="MySets"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="MySets" component={MySets} />
-      <Stack.Screen name="SetScreen" component={SetScreen} />
+      <Stack.Screen name="Home" component={Home} />
     </Stack.Navigator>
   );
 }
@@ -48,31 +47,18 @@ function CreateAISetStack() {
   );
 }
 
-function FlashcardsStack() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name="Flashcards" component={Flashcards} />
-    </Stack.Navigator>
-  );
-}
-
 function RootStack() {
   return (
     <Stack.Navigator
       presentation="modal"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="MySetsRoot" component={MySetsStack} />
+      <Stack.Screen name="Home" component={HomeStack} />
       <Stack.Screen
-        name="CreateManualSetRoot"
+        name="CreateManualSet"
         component={CreateManualSetStack}
       />
-      <Stack.Screen name="CreateAISetRoot" component={CreateAISetStack} />
-      <Stack.Screen name="Flashcards" component={FlashcardsStack} />
+      <Stack.Screen name="CreateAISet" component={CreateAISetStack} />
     </Stack.Navigator>
   );
 }

@@ -1,5 +1,12 @@
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 function Home({ navigation, recentSet }) {
@@ -8,44 +15,53 @@ function Home({ navigation, recentSet }) {
       <View style={styles.headerContainer}>
         <Text style={styles.newsText}>News</Text>
       </View>
+      <TouchableOpacity>
+        <View style={styles.mainContainer}>
+          <View style={styles.whiteContainer}>
+            <Image source={require("../assets/logo.png")} style={styles.logo} />
+            <Text style={styles.shuffleText}>Shuffle</Text>
+          </View>
 
-      <View style={styles.mainContainer}>
-        <View style={styles.whiteContainer}>
-          <Image source={require("../assets/logo.png")} style={styles.logo} />
-          <Text style={styles.shuffleText}>Shuffle</Text>
+          <Text style={styles.welcomeTitle}>Welcome to Shuffle</Text>
+          <Text style={styles.welcomeText}>
+            Welcome to Shuffle. All updates and...
+          </Text>
         </View>
-
-        <Text style={styles.welcomeTitle}>Welcome to Shuffle</Text>
-        <Text style={styles.welcomeText}>
-          Welcome to Shuffle. All updates and...
-        </Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.footerContainer}>
         <Text style={styles.getStartedText}>Get Started</Text>
-        <View style={styles.rectangleContainer}>
-          <Text style={styles.rectangleText}>Create a New Set Manually</Text>
-          <Ionicons
-            style={styles.button}
-            name="card-outline"
-            size={24}
-            color="#00A196"
-          />
-        </View>
-        <View style={styles.rectangleContainer}>
-          <Text style={styles.rectangleText}>Create a New Set with AI</Text>
-          <Text style={styles.aiButtonText}>AI</Text>
-        </View>
-        <View style={styles.rectangleContainer}>
-          <Text style={styles.rectangleText}>
-            Study recent set: {recentSet}
-          </Text>
-          <Ionicons
-            style={styles.button}
-            name="play-outline"
-            size={24}
-            color="#00A196"
-          />
-        </View>
+        <ScrollView>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("CreateManualSet")}
+          >
+            <View style={styles.innerRectangleContainer}>
+              <Text style={styles.rectangleText}>
+                Create a New Set Manually
+              </Text>
+              <View style={styles.iconContainer}>
+                <Ionicons name="card-outline" size={24} color="#00A196" />
+              </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("CreateAISet")}>
+            <View style={styles.innerRectangleContainer}>
+              <Text style={styles.rectangleText}>Create a New Set With AI</Text>
+              <View style={styles.iconContainer}>
+                <Text style={styles.aiButtonText}>AI</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View style={styles.innerRectangleContainer}>
+              <Text style={styles.rectangleText}>
+                Study recent set: {recentSet}
+              </Text>
+              <View style={styles.iconContainer}>
+                <Ionicons name="play-outline" size={24} color="#00A196" />
+              </View>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
     </View>
   );
@@ -106,12 +122,6 @@ const styles = StyleSheet.create({
   footerContainer: {
     marginTop: "5%",
   },
-  getStartedText: {
-    fontSize: 35,
-    fontWeight: "bold",
-    color: "white",
-    alignSelf: "flex-start",
-  },
   footerContainer: {
     marginTop: "15%",
   },
@@ -120,6 +130,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     alignSelf: "flex-start",
+    marginBottom: 10,
   },
   rectangleContainer: {
     flexDirection: "row",
@@ -129,6 +140,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 5,
     marginTop: 10,
+  },
+  innerRectangleContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    backgroundColor: "#363636",
+    padding: 6,
+    marginBottom: 10,
+    borderRadius: 10,
   },
   rectangleText: {
     fontSize: 16,
@@ -140,12 +161,11 @@ const styles = StyleSheet.create({
     color: "#00A196",
     marginRight: 3,
     backgroundColor: "#FFF",
-    width: 38,
-    height: 38,
-    borderRadius: 10,
+    padding: 1.5,
   },
-  button: {
+  iconContainer: {
     padding: 8,
+    borderRadius: 8,
     backgroundColor: "#FFF",
   },
 });

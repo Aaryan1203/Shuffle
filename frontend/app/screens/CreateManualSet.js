@@ -16,11 +16,12 @@ import BackButton from "../components/BackButton";
 import Set from "../components/Set";
 import SafetyScreen from "../components/PopUp";
 
-function CreateManualSet({ navigation }) {
+function CreateManualSet({ route, navigation }) {
   const [focused, setFocused] = useState(false);
   const [title, setTitle] = useState("");
   const [termDefinitions, setTermDefinitions] = useState([1]);
   const [showSafetyScreen, setShowSafetyScreen] = useState(false);
+  const { origin } = route.params || {};
 
   const handleTitleChange = (text) => {
     setTitle(text);

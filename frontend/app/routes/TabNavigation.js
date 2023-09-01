@@ -9,6 +9,7 @@ import MySetsStack from "./MySetsStack";
 import ProfileStack from "./ProfileStack"
 import ProfileStackNavigator from "./MySetsStack";
 import Profile from "../screens/Profile";
+import HomeStack from "./HomeStack"
 
 const Tab = createBottomTabNavigator();
 
@@ -74,7 +75,7 @@ function BottomTabNavigator() {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.iconStyle(focused)}>

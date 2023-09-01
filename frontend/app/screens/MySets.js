@@ -72,7 +72,9 @@ function MySets({ navigation }) {
           <AnimatedButton animatedValue={animatedValue} translation={55}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate("CreateManualSetRoot")}
+              onPress={() =>
+                navigation.navigate("CreateManualSetRoot")
+              }
             >
               <Ionicons name="card-outline" size={24} color="#00A196" />
             </TouchableOpacity>
